@@ -16,9 +16,40 @@ walking <- read.csv("lab-1.csv", header = TRUE)
 ```
 
 # Cleaning data
+Getting rid of unnecessary
 ```{r}
 walking <- walking %>% 
-  select(-desc, -name)
+  select(-type, -desc, -name)
 ```
+
+Making column names simpler
+```{r}
+walking <- walking %>% 
+  rename(altitude = altitude..ft.) %>% 
+  rename(speed = speed..mph.) %>% 
+  rename(distance_mi = distance..mi.) %>% 
+  rename(distance_int_ft = distance_interval..ft.)
+```
+
+# Summary stats
+We will be working with a full population
+```{r}
+#favstats( ~ c(time, latitude, longitude, altitude, speed, distance_mi, distance_int_ft), data = walking)
+#favstats( ~ latitude, data = walking)
+columns <- c(walking$time, walking$latitude, walking$longitude, walking$altitude, walking$speed, walking$distance_mi, walking$distance_int_ft)
+
+for (i in columns) {
+  fav_stats( ~ i, data = walking)
+}
+  
+
+
+
+
+```
+
+Question 1:
+The standard deviation
+
 
 

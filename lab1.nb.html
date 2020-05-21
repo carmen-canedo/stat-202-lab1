@@ -1838,18 +1838,56 @@ You may need to 'library(tidyverse)' in order to
 </div>
 <div id="cleaning-data" class="section level1">
 <h1>Cleaning data</h1>
+<p>Getting rid of unnecessary</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2Fsa2luZyA8LSB3YWxraW5nICU+JSBcbiAgc2VsZWN0KC1kZXNjLCAtbmFtZSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2Fsa2luZyA8LSB3YWxraW5nICU+JSBcbiAgc2VsZWN0KC1kZXNjLCAtbmFtZSwgLWB0eXBlYClcblxuYGBgIn0= -->
 <pre class="r"><code>walking &lt;- walking %&gt;% 
-  select(-desc, -name)</code></pre>
+  select(-desc, -name, -`type`)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gLXggOiBpbnZhbGlkIGFyZ3VtZW50IHRvIHVuYXJ5IG9wZXJhdG9yXG4ifQ== -->
+<pre><code>Error in -x : invalid argument to unary operator</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Making column names simpler</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2Fsa2luZyA8LSB3YWxraW5nICU+JSBcbiAgcmVuYW1lKGFsdGl0dWRlID0gYWx0aXR1ZGUuLmZ0LikgJT4lIFxuICByZW5hbWUoc3BlZWQgPSBzcGVlZC4ubXBoLilcblxuYGBgIn0= -->
+<pre class="r"><code>walking &lt;- walking %&gt;% 
+  rename(altitude = altitude..ft.) %&gt;% 
+  rename(speed = speed..mph.)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gLmYoLnhbW2ldXSwgLi4uKSA6IG9iamVjdCAnYWx0aXR1ZGUuLmZ0Licgbm90IGZvdW5kXG4ifQ== -->
+<pre><code>Error in .f(.x[[i]], ...) : object 'altitude..ft.' not found</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="summary-stats" class="section level1">
+<h1>Summary stats</h1>
+<p>We will be working with a full population</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9yIChpIGluIGNvbHVtbnMpIHtcbiAgZmF2X3N0YXRzKCB+IGksIGRhdGEgPSB3YWxraW5nKVxufVxuXG5gYGAifQ== -->
+<pre class="r"><code>for (i in columns) {
+  fav_stats( ~ i, data = walking)
+}
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiQXV0by1jb252ZXJ0aW5nIGZvcm11bGEgdG8gbnVtZXJpYy5FcnJvciBpbiBmYXZfc3RhdHMofmksIGRhdGEgPSB3YWxraW5nKSA6IFxuICAncGFpcmxpc3QnIG9iamVjdCBjYW5ub3QgYmUgY29lcmNlZCB0byB0eXBlICdkb3VibGUnXG4ifQ== -->
+<pre><code>Auto-converting formula to numeric.Error in fav_stats(~i, data = walking) : 
+  'pairlist' object cannot be coerced to type 'double'</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 1: The standard deviation</p>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGFiIDEiCm91dHB1dDogaHRtbF9ub3RlYm9vawplZGl0b3Jfb3B0aW9uczogCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGlubGluZQotLS0KCiMgTmVjZXNzYXJ5IFBhY2thZ2VzCmBgYHtyLCBtZXNzYWdlPUZBTFNFfQpsaWJyYXJ5KG1kc3IpCmBgYAoKIyBMb2FkaW5nIGluIGRhdGEKYGBge3J9CndhbGtpbmcgPC0gcmVhZC5jc3YoImxhYi0xLmNzdiIsIGhlYWRlciA9IFRSVUUpCmBgYAoKIyBDbGVhbmluZyBkYXRhCmBgYHtyfQp3YWxraW5nIDwtIHdhbGtpbmcgJT4lIAogIHNlbGVjdCgtZGVzYywgLW5hbWUpCmBgYAoKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGFiIDEiCm91dHB1dDogaHRtbF9ub3RlYm9vawplZGl0b3Jfb3B0aW9uczogCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGlubGluZQotLS0KCiMgTmVjZXNzYXJ5IFBhY2thZ2VzCmBgYHtyLCBtZXNzYWdlPUZBTFNFfQpsaWJyYXJ5KG1kc3IpCmBgYAoKIyBMb2FkaW5nIGluIGRhdGEKYGBge3J9CndhbGtpbmcgPC0gcmVhZC5jc3YoImxhYi0xLmNzdiIsIGhlYWRlciA9IFRSVUUpCmBgYAoKIyBDbGVhbmluZyBkYXRhCkdldHRpbmcgcmlkIG9mIHVubmVjZXNzYXJ5CmBgYHtyfQp3YWxraW5nIDwtIHdhbGtpbmcgJT4lIAogIHNlbGVjdCgtdHlwZSwgLWRlc2MsIC1uYW1lKQpgYGAKCk1ha2luZyBjb2x1bW4gbmFtZXMgc2ltcGxlcgpgYGB7cn0Kd2Fsa2luZyA8LSB3YWxraW5nICU+JSAKICByZW5hbWUoYWx0aXR1ZGUgPSBhbHRpdHVkZS4uZnQuKSAlPiUgCiAgcmVuYW1lKHNwZWVkID0gc3BlZWQuLm1waC4pICU+JSAKICByZW5hbWUoZGlzdGFuY2VfbWkgPSBkaXN0YW5jZS4ubWkuKSAlPiUgCiAgcmVuYW1lKGRpc3RhbmNlX2ludF9mdCA9IGRpc3RhbmNlX2ludGVydmFsLi5mdC4pCmBgYAoKIyBTdW1tYXJ5IHN0YXRzCldlIHdpbGwgYmUgd29ya2luZyB3aXRoIGEgZnVsbCBwb3B1bGF0aW9uCmBgYHtyfQojZmF2c3RhdHMoIH4gYyh0aW1lLCBsYXRpdHVkZSwgbG9uZ2l0dWRlLCBhbHRpdHVkZSwgc3BlZWQsIGRpc3RhbmNlX21pLCBkaXN0YW5jZV9pbnRfZnQpLCBkYXRhID0gd2Fsa2luZykKI2ZhdnN0YXRzKCB+IGxhdGl0dWRlLCBkYXRhID0gd2Fsa2luZykKY29sdW1ucyA8LSBjKHdhbGtpbmckdGltZSwgd2Fsa2luZyRsYXRpdHVkZSwgd2Fsa2luZyRsb25naXR1ZGUsIHdhbGtpbmckYWx0aXR1ZGUsIHdhbGtpbmckc3BlZWQsIHdhbGtpbmckZGlzdGFuY2VfbWksIHdhbGtpbmckZGlzdGFuY2VfaW50X2Z0KQoKZm9yIChpIGluIGNvbHVtbnMpIHsKICBmYXZfc3RhdHMoIH4gaSwgZGF0YSA9IHdhbGtpbmcpCn0KICAKCgoKCmBgYAoKUXVlc3Rpb24gMToKVGhlIHN0YW5kYXJkIGRldmlhdGlvbgoKCgo=</div>
 
 
 
