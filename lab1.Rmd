@@ -1,0 +1,24 @@
+---
+title: "Lab 1"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Necessary Packages
+```{r, message=FALSE}
+library(mdsr)
+```
+
+# Loading in data
+```{r}
+walking <- read.csv("lab-1.csv", header = TRUE)
+```
+
+# Cleaning data
+```{r}
+walking <- walking %>% 
+  select(-desc, -name)
+```
+
+
