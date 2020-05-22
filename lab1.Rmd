@@ -34,17 +34,28 @@ walking <- walking %>%
 # Summary stats
 We will be working with a full population
 ```{r}
-#favstats( ~ c(time, latitude, longitude, altitude, speed, distance_mi, distance_int_ft), data = walking)
-#favstats( ~ latitude, data = walking)
 columns <- c(walking$time, walking$latitude, walking$longitude, walking$altitude, walking$speed, walking$distance_mi, walking$distance_int_ft)
 
-for (i in columns) {
-  fav_stats( ~ i, data = walking)
-}
-  
+sum_time <- favstats( ~ time, data = walking)
+sum_time
 
+sum_latitude <- favstats( ~ latitude, data = walking)
+sum_latitude
 
+sum_longitude <- favstats( ~ longitude, data = walking)
+sum_longitude
 
+sum_altitude <- favstats( ~ altitude, data = walking)
+sum_altitude
+
+sum_speed <- favstats( ~ speed, data = walking)
+sum_speed
+
+sum_distance_mi <- favstats( ~ distance_mi, data = walking)
+sum_distance_mi
+
+distance_int_ft <- as.numeric(walking$distance_int_ft)
+sum_dist_int_ft <- favstats( ~ distance_int_ft, data = walking)
 
 ```
 
