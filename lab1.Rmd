@@ -78,7 +78,8 @@ lat_v_long <- walking %>%
        subtitle = "Carmen Canedo",
        caption = "STAT 202, Summer 2020",
        x = "Longitude",
-       y = "Latitude")
+       y = "Latitude",
+       color = "Speed (mph)")
 
 lat_v_long
 ```
