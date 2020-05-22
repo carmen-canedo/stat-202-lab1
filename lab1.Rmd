@@ -56,6 +56,7 @@ sum_distance_mi
 
 distance_int_ft <- as.numeric(walking$distance_int_ft)
 sum_dist_int_ft <- favstats( ~ distance_int_ft, data = walking)
+sum_dist_int_ft
 
 ```
 
