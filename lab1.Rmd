@@ -71,10 +71,14 @@ color scheme = red to blue scale
 ```{r}
 lat_v_long <- walking %>%
   ggplot(aes(x = longitude, y = latitude)) +
-  geom_point(aes(color = speed), size = 3) +
-  xlab("Longitude") +
-  ylab("Latitude") +
-  ggtitle("Longitude versus Latitude")
+  geom_point(alpha = 0.8, aes(color = speed), size = 3) +
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_minimal() +
+  labs(title = "Longitude versus Latitude",
+       subtitle = "Carmen Canedo",
+       caption = "STAT 202, Summer 2020",
+       x = "Longitude",
+       y = "Latitude")
 
 lat_v_long
 ```
@@ -85,8 +89,10 @@ y = latitude
 
 Let's calculate the linear regression model
 ```{r}
-mod1 <- walking %>% 
-  lm(latitude ~ longitude)
+lat_v_long <- lat_v_long +
+  geom_smooth(method = "lm")
+
+lat_v_long
 ```
 
 
