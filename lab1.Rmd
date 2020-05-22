@@ -36,9 +36,6 @@ We will be working with a full population
 ```{r}
 columns <- c(walking$time, walking$latitude, walking$longitude, walking$altitude, walking$speed, walking$distance_mi, walking$distance_int_ft)
 
-sum_time <- favstats( ~ time, data = walking)
-sum_time
-
 sum_latitude <- favstats( ~ latitude, data = walking)
 sum_latitude
 
@@ -57,11 +54,39 @@ sum_distance_mi
 distance_int_ft <- as.numeric(walking$distance_int_ft)
 sum_dist_int_ft <- favstats( ~ distance_int_ft, data = walking)
 sum_dist_int_ft
-
 ```
 
 Question 1:
-The standard deviation
+The standard deviation is larger for latitude.
+
+Question 2:
+This tells us that the latitude moves farther from the mean latitude.
+
+# Latitude v. Longitude Scatter Plot
+x = longitude
+y = latitude
+group by = speed
+color scheme = red to blue scale
+
+```{r}
+lat_v_long <- walking %>%
+  ggplot(aes(x = longitude, y = latitude)) +
+  geom_point(aes(color = speed), size = 3) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  ggtitle("Longitude versus Latitude")
+
+lat_v_long
+```
+
+# Adding Linear Regression
+x = longitude
+y = latitude
+
+Let's calculate the linear regression model
+```{r}
+mod1 <- 
+```
 
 
 
