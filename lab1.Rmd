@@ -85,7 +85,8 @@ y = latitude
 
 Let's calculate the linear regression model
 ```{r}
-mod1 <- 
+mod1 <- walking %>% 
+  lm(latitude ~ longitude)
 ```
 
 
