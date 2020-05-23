@@ -1,13 +1,22 @@
 ---
 title: "Lab 1"
-output: html_notebook
-editor_options: 
+author: "Carmen Canedo"
+output:
+  pdf_document: default
+  html_notebook: default
+editor_options:
   chunk_output_type: inline
 ---
 
 # Necessary Packages
 ```{r, message=FALSE}
 library(mdsr)
+library(XML)
+library(OpenStreetMap)
+library(lubridate)
+library(ggmap)
+library(raster)
+library(sp)
 ```
 
 # Loading in data
@@ -96,5 +105,68 @@ lat_v_long <- lat_v_long +
 lat_v_long
 ```
 
+# Details
++ Equation for regression line and the correlation coefficient
++ Is the line of best fit a good tool to estimate the path traveled? Why or why not?
++ How does the correlation help you answer part b?
 
+# Mapping
+I followed exercises from [here](https://rpubs.com/ials2un/gpx1)
+
+# Function to shift vectors
+```{r}
+shift_vec <- function(vector, shift) {
+  if (length(vec) <= abs(shift)) {
+    rep(NA, length(vec))
+  } else {
+    if (shift >= 0) {
+      c(rep(NA, shift), vec[1:(length(vec) - shift)])
+    } else {
+      c(vec[(abs(shift) + 1):length(vec)])
+    }
+  }
+}
+```
+
+# Reading in GPX file
+```{r}
+options(digits = 10)
+
+# Parsing the GPX file
+parsed_file <- htmlTreeParse(file = "lab-1-raw-data.gpx", error = function(...) {}, useInternalNodes = TRUE)
+
+# Get all elevations, times, and coordinates via the repsective xpath
+#altitudes <- as.numeric(xpathSApply(parsed_file, path = "//trkkpt/ele", xmlValue))
+times <- xpathSApply(parsed_file, path = "//trkpt/time", xmlValue)
+coords <- xpathSApply(parsed_file, path = "//trkpt", xmlAttrs)
+
+# Extract latitude and longitude from the coordinates
+lats <- as.numeric(coords["lat",])
+lons <- as.numeric(coords["lon",])
+```
+
+# Putting into dataframe
+```{r}
+geodf <- data.frame(lat = lats, lon = lons, time = times)
+```
+
+# Plotting the map
+```{r}
+lat <- c(min(geodf$lat), max(geodf$lat))
+lon <- c(min(geodf$lon), max(geodf$lon))
+
+# Compute bounding box
+bbox <- make_bbox(lon, lat)
+
+box1 <- bbox %>% 
+  get_stamenmap(maptype = "watercolor", source = "stamen")
+```
+
+Now adding details
+```{r}
+ggmap(box1) +
+  geom_point(data = geodf,
+             aes(x = lon, y = lat), size = 1, alpha = 0.7) +
+  labs(x = "Longitude", y = "Latitude", title = "Walking Path")
+```
 
