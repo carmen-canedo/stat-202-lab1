@@ -151,16 +151,16 @@ geodf <- data.frame(lat = lats, lon = lons, time = times)
 ```
 
 # Plotting the map
-```{r}
-lat <- c(min(geodf$lat), max(geodf$lat))
-lon <- c(min(geodf$lon), max(geodf$lon))
+#```{r}
+#lat <- c(min(geodf$lat), max(geodf$lat))
+#lon <- c(min(geodf$lon), max(geodf$lon))
 
 # Compute bounding box
-bbox <- make_bbox(lon, lat)
+#bbox <- make_bbox(lon, lat)
 
-box1 <- bbox %>% 
-  get_stamenmap(maptype = "watercolor", source = "stamen")
-```
+#box1 <- bbox %>% 
+#  get_stamenmap(maptype = "watercolor", source = "stamen")
+#```
 
 Now adding details
 ```{r}
@@ -177,7 +177,11 @@ ggmap(box1) +
 street <- get_map(location = "415 N 15th St., Lockeland Springs, Nashville, Tennessee",
                   zoom = 18,
                   maptype = "roadmap")
-ggmap(street)
+ggmap(street) +
+  geom_point(geodf,
+             aes(x = lon, y = lat),
+             size = 1,
+             alpha = 0.7)
 ```
 
 
