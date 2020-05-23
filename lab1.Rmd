@@ -28,7 +28,7 @@ walking <- read.csv("lab-1.csv", header = TRUE)
 Getting rid of unnecessary
 ```{r}
 walking <- walking %>% 
-  select(-type, -desc, -name)
+  dplyr::select(-type, -desc, -name)
 ```
 
 Making column names simpler
@@ -43,25 +43,24 @@ walking <- walking %>%
 # Summary stats
 We will be working with a full population
 ```{r}
-columns <- c(walking$time, walking$latitude, walking$longitude, walking$altitude, walking$speed, walking$distance_mi, walking$distance_int_ft)
-
 sum_latitude <- favstats( ~ latitude, data = walking)
-sum_latitude
 
 sum_longitude <- favstats( ~ longitude, data = walking)
-sum_longitude
 
 sum_altitude <- favstats( ~ altitude, data = walking)
-sum_altitude
 
 sum_speed <- favstats( ~ speed, data = walking)
-sum_speed
 
 sum_distance_mi <- favstats( ~ distance_mi, data = walking)
-sum_distance_mi
 
-distance_int_ft <- as.numeric(walking$distance_int_ft)
 sum_dist_int_ft <- favstats( ~ distance_int_ft, data = walking)
+
+# Results
+sum_latitude
+sum_longitude
+sum_altitude
+sum_speed
+sum_distance_mi
 sum_dist_int_ft
 ```
 
@@ -150,38 +149,27 @@ lons <- as.numeric(coords["lon",])
 geodf <- data.frame(lat = lats, lon = lons, time = times)
 ```
 
-# Plotting the map
-#```{r}
-#lat <- c(min(geodf$lat), max(geodf$lat))
-#lon <- c(min(geodf$lon), max(geodf$lon))
-
-# Compute bounding box
-#bbox <- make_bbox(lon, lat)
-
-#box1 <- bbox %>% 
-#  get_stamenmap(maptype = "watercolor", source = "stamen")
-#```
-
-Now adding details
-```{r}
-ggmap(box1) +
-  geom_point(data = geodf,
-             aes(x = lon, y = lat),
-             size = 1,
-             alpha = 0.7) +
-  labs(x = "Longitude", y = "Latitude", title = "Walking Path")
-```
+  
 
 # Trying get_map() query
 ```{r}
-street <- get_map(location = "415 N 15th St., Lockeland Springs, Nashville, Tennessee",
-                  zoom = 18,
+street <- get_map(location = "409 N 15th St., Lockeland Springs, Nashville, Tennessee",
+                  zoom = 19,
                   maptype = "roadmap")
-ggmap(street) +
-  geom_point(geodf,
+
+# Plotting points
+path <- ggmap(street) +
+  geom_point(data = geodf,
              aes(x = lon, y = lat),
              size = 1,
-             alpha = 0.7)
+             alpha = 0.7,
+             color = "red")
+
+# Adding details
+path <- path +
+  labs(x = "Longitude", y = "Latitude", title = "Walking Path Plotted using myTracks", subtitle = "Carmen Canedo", caption = "STAT 202, Summer 2020")
+
+path
 ```
 
 
