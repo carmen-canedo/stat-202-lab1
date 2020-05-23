@@ -166,7 +166,24 @@ Now adding details
 ```{r}
 ggmap(box1) +
   geom_point(data = geodf,
-             aes(x = lon, y = lat), size = 1, alpha = 0.7) +
+             aes(x = lon, y = lat),
+             size = 1,
+             alpha = 0.7) +
   labs(x = "Longitude", y = "Latitude", title = "Walking Path")
+```
+
+# Trying get_map() query
+```{r}
+street <- get_map(location = "415 N 15th St., Lockeland Springs, Nashville, Tennessee",
+                  zoom = 18,
+                  maptype = "roadmap")
+ggmap(street)
+```
+
+
+```{r}
+ggplot(geodf) +
+  geom_point(aes(x = lon, y = lat)) +
+  coord_quickmap()
 ```
 
