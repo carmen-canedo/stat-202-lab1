@@ -154,7 +154,9 @@ shift_vec <- function(vector, shift) {
 options(digits = 10)
 
 # Parsing the GPX file
-parsed_file <- htmlTreeParse(file = "lab-1-raw-data.gpx", error = function(...) {}, useInternalNodes = TRUE)
+parsed_file <- htmlTreeParse(file = "lab-1-raw-data.gpx",
+                             error = function(...) {},
+                             useInternalNodes = TRUE)
 
 # Get all times and coordinates via the respective xpath
 times <- xpathSApply(parsed_file, path = "//trkpt/time", xmlValue)
@@ -192,7 +194,11 @@ path <- ggmap(street) +
 
 # Adding details
 path <- path +
-  labs(x = "Longitude", y = "Latitude", title = "Walking Path Plotted using myTracks", subtitle = "Carmen Canedo", caption = "STAT 202, Summer 2020")
+  labs(x = "Longitude",
+       y = "Latitude",
+       title = "Walking Path Plotted using myTracks",
+       subtitle = "Carmen Canedo",
+       caption = "STAT 202, Summer 2020")
 
 path
 ```
