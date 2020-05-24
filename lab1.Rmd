@@ -8,6 +8,11 @@ editor_options:
   chunk_output_type: inline
 ---
 
+# About
+For this lab, I used the GPS tracking app on my iPhone, myTracker, to trace myself walking a straight path outside of my house in Nashville, TN. I tried to maintain a steady pace as I walked up and down the street. 
+
+Below you will find an analysis of my path that was created using R statistical software. My code is available below, but my step by step process can be found on [my GitHub page](https://github.com/carmen-canedo/stat-202-lab1).
+
 # Necessary Packages
 ```{r, message=FALSE}
 library(mdsr)
@@ -19,12 +24,13 @@ library(raster)
 library(sp)
 ```
 
-# Loading in data
+# Getting the data ready
+## Loading in data
 ```{r}
 walking <- read.csv("lab-1.csv", header = TRUE)
 ```
 
-# Cleaning data
+## Cleaning data
 Getting rid of unnecessary columns
 ```{r}
 walking <- walking %>% 
@@ -40,7 +46,8 @@ walking <- walking %>%
   rename(distance_int_ft = distance_interval..ft.)
 ```
 
-# Summary stats
+# Calculating Summary and Linear Regression model
+## Summary stats
 We will be working with a full population
 ```{r}
 sum_latitude <- favstats( ~ latitude, data = walking)
@@ -64,13 +71,14 @@ sum_distance_mi
 sum_dist_int_ft
 ```
 
-Question 1:
+### Analysis
+#####Question 1:
 The standard deviation is larger for latitude.
 
-Question 2:
+#####Question 2:
 This tells us that the latitude moves farther from the mean latitude.
 
-# Latitude v. Longitude Scatter Plot
+## Creating Latitude v. Longitude Scatter Plot
 x = longitude
 y = latitude
 group by = speed
@@ -92,7 +100,7 @@ lat_v_long <- walking %>%
 lat_v_long
 ```
 
-# Adding Linear Regression
+## Adding Line of Best Fit
 x = longitude
 y = latitude
 
@@ -104,25 +112,30 @@ lat_v_long <- lat_v_long +
 lat_v_long
 ```
 
-# Simple Linear Regression results
+## Simple Linear Regression Results
 ```{r}
+# Calculating model
 model <- lm(latitude ~ longitude, data = walking)
 
 # Finding correlation coefficient
 coef(model)
 ```
 
+Formula for line of best fit
+$latitude = 651.653 + 7.0954(longitude)$
 
-# Details
+### Analysis
 + Equation for regression line and the correlation coefficient
 + Is the line of best fit a good tool to estimate the path traveled? Why or why not?
 + How does the correlation help you answer part b?
 
-# Mapping
+## Mapping the route
 I followed exercises from [here](https://rpubs.com/ials2un/gpx1)
 
-# Function to shift vectors
+### Getting the data
+In order to ensure that all the values work when mapped, this equation places the vectors correctly.
 ```{r}
+# Function to shift vectors
 shift_vec <- function(vector, shift) {
   if (length(vec) <= abs(shift)) {
     rep(NA, length(vec))
@@ -136,15 +149,14 @@ shift_vec <- function(vector, shift) {
 }
 ```
 
-# Reading in GPX file
+### Reading in GPX file
 ```{r}
 options(digits = 10)
 
 # Parsing the GPX file
 parsed_file <- htmlTreeParse(file = "lab-1-raw-data.gpx", error = function(...) {}, useInternalNodes = TRUE)
 
-# Get all elevations, times, and coordinates via the repsective xpath
-#altitudes <- as.numeric(xpathSApply(parsed_file, path = "//trkkpt/ele", xmlValue))
+# Get all times and coordinates via the respective xpath
 times <- xpathSApply(parsed_file, path = "//trkpt/time", xmlValue)
 coords <- xpathSApply(parsed_file, path = "//trkpt", xmlAttrs)
 
@@ -153,19 +165,23 @@ lats <- as.numeric(coords["lat",])
 lons <- as.numeric(coords["lon",])
 ```
 
-# Putting into dataframe
+### Putting values into dataframe
+This allows us to have all of the GPX file in one place, ready to be placed onto a map.
 ```{r}
 geodf <- data.frame(lat = lats, lon = lons, time = times)
 ```
 
-  
-
-# Trying get_map() query
-```{r}
+### Querying map background
+I used my Google API to access the static map used below.
+```{r, message=FALSE}
 street <- get_map(location = "409 N 15th St., Lockeland Springs, Nashville, Tennessee",
                   zoom = 19,
                   maptype = "roadmap")
+```
 
+
+### Creating the map
+```{r}
 # Plotting points
 path <- ggmap(street) +
   geom_point(data = geodf,
@@ -180,11 +196,3 @@ path <- path +
 
 path
 ```
-
-
-```{r}
-ggplot(geodf) +
-  geom_point(aes(x = lon, y = lat)) +
-  coord_quickmap()
-```
-
