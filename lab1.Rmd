@@ -3,8 +3,8 @@ title: "Lab 1"
 author: "Carmen Canedo"
 date: "May 23, 2020"
 output:
-  word_document: default
   pdf_document: default
+  html_notebook: default
 editor_options:
   chunk_output_type: inline
 ---
@@ -33,7 +33,8 @@ walking <- read.csv("lab-1.csv", header = TRUE)
 ```
 
 ## Cleaning data
-###Getting rid of unnecessary columns
+
+### Getting rid of unnecessary columns
 ```{r}
 walking <- walking %>% 
   dplyr::select(-type, -desc, -name)
@@ -115,7 +116,7 @@ model <- lm(latitude ~ longitude, data = walking)
 coef(model)
 ```
 
-*Formula for line of best fit:* \n
+*Formula for line of best fit:*
 $latitude = 651.653 + 7.0954(longitude)$
 
 ### Analysis
