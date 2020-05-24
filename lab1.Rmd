@@ -13,9 +13,10 @@ editor_options:
 # About
 For this lab, I used the GPS tracking app on my iPhone, myTracker, to trace myself walking a straight path outside of my house in Nashville, TN. I tried to maintain a steady pace as I walked up and down the street. 
 
-Below you will find an analysis of my path that was created using R statistical software. My code is available below, but my step by step process can be found on [my GitHub page](https://github.com/carmen-canedo/stat-202-lab1).
+Below you will find an analysis of my path that was created using R statistical software. My code is available below, but my step by step process can be found on *[my GitHub page](https://github.com/carmen-canedo/stat-202-lab1)*.
 
 # Necessary Packages
+In order to run the code below, the following packages must be installed and loaded on your computer.
 ```{r, message=FALSE}
 library(mdsr)
 library(XML)
@@ -27,13 +28,15 @@ library(sp)
 ```
 
 # Getting the data ready
-## Loading in data
+Before conducting an analysis on my data, I found that it was necessary to narrow down the number of columns and rename some columns for clarity.
+
+## Loading in data from .csv
+Saving .csv file into a dataframe that can be easily manipulated.
 ```{r}
 walking <- read.csv("lab-1.csv", header = TRUE)
 ```
 
 ## Cleaning data
-
 ### Getting rid of unnecessary columns
 ```{r}
 walking <- walking %>% 
@@ -50,6 +53,7 @@ walking <- walking %>%
 ```
 
 # Summary stats calculations
+Summary statistics provide us with key information on the center and spread of our data; below, I calculate the minimum, first quartile, median, third quartile, max, mean, and standard deviation.
 ```{r}
 sum_latitude <- favstats( ~ latitude, data = walking)
 
@@ -66,7 +70,6 @@ sum_dist_int_ft <- favstats( ~ distance_int_ft, data = walking)
 
 ## Results
 ```{r}
-# Results
 sum_latitude
 sum_longitude
 sum_altitude
@@ -100,6 +103,8 @@ lat_v_long
 ```
 
 ## Adding Line of Best Fit
+In order to approximate the location of the sidewalk, we are going to add a line of best fit. 
+
 ```{r}
 lat_v_long <- lat_v_long +
   geom_smooth(method = "lm")
@@ -116,7 +121,7 @@ model <- lm(latitude ~ longitude, data = walking)
 coef(model)
 ```
 
-*Formula for line of best fit:*
+**Formula for line of best fit:**
 $latitude = 651.653 + 7.0954(longitude)$
 
 ### Analysis
@@ -124,7 +129,7 @@ $latitude = 651.653 + 7.0954(longitude)$
   + How does the correlation help you answer part b?
 
 # Mapping the route
-I referenced exercises from [here](https://rpubs.com/ials2un/gpx1)
+The exercises I referenced to create my own map can be found by clicking *[here](https://rpubs.com/ials2un/gpx1)*.
 
 ## Getting the data
 In order to ensure that all the values work when mapped, this equation places the vectors correctly.
@@ -144,6 +149,7 @@ shift_vec <- function(vector, shift) {
 ```
 
 ## Reading in GPX file
+Next we read in the .GPX file itself instead of using the .csv file from above.
 ```{r}
 # Limits to 10 digits
 options(digits = 10)
@@ -169,7 +175,7 @@ geodf <- data.frame(lat = lats, lon = lons, time = times)
 ```
 
 ## Querying map background
-I used my Google API to access the static map used below.
+I am using my Google API to access the static map used below. It is centered on the street where I walked, and I zoomed in so that my path will be visible.
 ```{r, message=FALSE}
 street <- get_map(location = "409 N 15th St., Lockeland Springs, Nashville, Tennessee",
                   zoom = 19,
@@ -178,6 +184,7 @@ street <- get_map(location = "409 N 15th St., Lockeland Springs, Nashville, Tenn
 
 
 ## Finished product
+Finally, we can put all the data together and plot the points onto the map using the `ggmap` package.
 ```{r}
 # Plotting points
 path <- ggmap(street) +
@@ -199,5 +206,5 @@ path
 ```
 
 # Conclusion
-* What was learned
-* Et ecetera
+This lab allowed me to apply statistical skills in a real life setting.
+  + Et ecetera
