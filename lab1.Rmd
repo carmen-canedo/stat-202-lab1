@@ -3,11 +3,12 @@ title: "Lab 1"
 author: "Carmen Canedo"
 date: "May 23, 2020"
 output:
+  word_document: default
   pdf_document: default
-  html_notebook: default
 editor_options:
   chunk_output_type: inline
 ---
+
 
 # About
 For this lab, I used the GPS tracking app on my iPhone, myTracker, to trace myself walking a straight path outside of my house in Nashville, TN. I tried to maintain a steady pace as I walked up and down the street. 
@@ -15,7 +16,7 @@ For this lab, I used the GPS tracking app on my iPhone, myTracker, to trace myse
 Below you will find an analysis of my path that was created using R statistical software. My code is available below, but my step by step process can be found on [my GitHub page](https://github.com/carmen-canedo/stat-202-lab1).
 
 # Necessary Packages
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE}
 library(mdsr)
 library(XML)
 library(OpenStreetMap)

@@ -1,0 +1,482 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Lab 1},
+  pdfauthor={Carmen Canedo},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Lab 1}
+\author{Carmen Canedo}
+\date{May 23, 2020}
+
+\begin{document}
+\maketitle
+
+\hypertarget{about}{%
+\section{About}\label{about}}
+
+For this lab, I used the GPS tracking app on my iPhone, myTracker, to
+trace myself walking a straight path outside of my house in Nashville,
+TN. I tried to maintain a steady pace as I walked up and down the
+street.
+
+Below you will find an analysis of my path that was created using R
+statistical software. My code is available below, but my step by step
+process can be found on
+\href{https://github.com/carmen-canedo/stat-202-lab1}{my GitHub page}.
+
+\hypertarget{necessary-packages}{%
+\section{Necessary Packages}\label{necessary-packages}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(mdsr)}
+\KeywordTok{library}\NormalTok{(XML)}
+\KeywordTok{library}\NormalTok{(OpenStreetMap)}
+\KeywordTok{library}\NormalTok{(lubridate)}
+\KeywordTok{library}\NormalTok{(ggmap)}
+\KeywordTok{library}\NormalTok{(raster)}
+\KeywordTok{library}\NormalTok{(sp)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{getting-the-data-ready}{%
+\section{Getting the data ready}\label{getting-the-data-ready}}
+
+\hypertarget{loading-in-data}{%
+\subsection{Loading in data}\label{loading-in-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{walking <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"lab-1.csv"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cleaning-data}{%
+\subsection{Cleaning data}\label{cleaning-data}}
+
+\#\#\#Getting rid of unnecessary columns
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{walking <-}\StringTok{ }\NormalTok{walking }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{type, }\OperatorTok{-}\NormalTok{desc, }\OperatorTok{-}\NormalTok{name)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{making-column-names-simpler}{%
+\subsubsection{Making column names
+simpler}\label{making-column-names-simpler}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{walking <-}\StringTok{ }\NormalTok{walking }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{altitude =}\NormalTok{ altitude..ft.) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{speed =}\NormalTok{ speed..mph.) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{distance_mi =}\NormalTok{ distance..mi.) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{distance_int_ft =}\NormalTok{ distance_interval..ft.)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{summary-stats-calculations}{%
+\section{Summary stats calculations}\label{summary-stats-calculations}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sum_latitude <-}\StringTok{ }\KeywordTok{favstats}\NormalTok{( }\OperatorTok{~}\StringTok{ }\NormalTok{latitude, }\DataTypeTok{data =}\NormalTok{ walking)}
+
+\NormalTok{sum_longitude <-}\StringTok{ }\KeywordTok{favstats}\NormalTok{( }\OperatorTok{~}\StringTok{ }\NormalTok{longitude, }\DataTypeTok{data =}\NormalTok{ walking)}
+
+\NormalTok{sum_altitude <-}\StringTok{ }\KeywordTok{favstats}\NormalTok{( }\OperatorTok{~}\StringTok{ }\NormalTok{altitude, }\DataTypeTok{data =}\NormalTok{ walking)}
+
+\NormalTok{sum_speed <-}\StringTok{ }\KeywordTok{favstats}\NormalTok{( }\OperatorTok{~}\StringTok{ }\NormalTok{speed, }\DataTypeTok{data =}\NormalTok{ walking)}
+
+\NormalTok{sum_distance_mi <-}\StringTok{ }\KeywordTok{favstats}\NormalTok{( }\OperatorTok{~}\StringTok{ }\NormalTok{distance_mi, }\DataTypeTok{data =}\NormalTok{ walking)}
+
+\NormalTok{sum_dist_int_ft <-}\StringTok{ }\KeywordTok{favstats}\NormalTok{( }\OperatorTok{~}\StringTok{ }\NormalTok{distance_int_ft, }\DataTypeTok{data =}\NormalTok{ walking)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{results}{%
+\subsection{Results}\label{results}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Results}
+\NormalTok{sum_latitude}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       min       Q1  median       Q3      max    mean           sd   n missing
+##  36.18001 36.18029 36.1806 36.18091 36.18117 36.1806 0.0003514294 221       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sum_longitude}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        min        Q1   median        Q3       max     mean           sd   n
+##  -86.74297 -86.74294 -86.7429 -86.74286 -86.74278 -86.7429 4.645446e-05 221
+##  missing
+##        0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sum_altitude}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    min    Q1 median    Q3   max     mean       sd   n missing
+##  500.8 505.8  511.2 512.4 516.1 509.3181 4.041696 221       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sum_speed}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1 median    Q3 max     mean       sd   n missing
+##    0 2.275    2.7 3.325  10 2.839545 1.226507 220       1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sum_distance_mi}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1 median    Q3   max       mean         sd   n missing
+##    0 0.047   0.09 0.137 0.181 0.09093213 0.05260591 221       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sum_dist_int_ft}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min   Q1 median   Q3   max    mean       sd   n missing
+##    0 3.14   4.01 5.29 14.58 4.32362 1.937173 221       0
+\end{verbatim}
+
+\hypertarget{analysis}{%
+\subsubsection{Analysis}\label{analysis}}
+
+\begin{itemize}
+\tightlist
+\item
+  Question 1:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The standard deviation is larger for latitude.
+  \end{itemize}
+\item
+  Question 2:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This tells us that the latitude moves farther from the mean
+    latitude.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{creating-latitude-v.-longitude-scatter-plot}{%
+\section{Creating Latitude v. Longitude Scatter
+Plot}\label{creating-latitude-v.-longitude-scatter-plot}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lat_v_long <-}\StringTok{ }\NormalTok{walking }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ longitude, }\DataTypeTok{y =}\NormalTok{ latitude)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.8}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ speed), }\DataTypeTok{size =} \DecValTok{3}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_gradient}\NormalTok{(}\DataTypeTok{low =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Longitude versus Latitude"}\NormalTok{,}
+       \DataTypeTok{subtitle =} \StringTok{"Carmen Canedo"}\NormalTok{,}
+       \DataTypeTok{caption =} \StringTok{"STAT 202, Summer 2020"}\NormalTok{,}
+       \DataTypeTok{x =} \StringTok{"Longitude"}\NormalTok{,}
+       \DataTypeTok{y =} \StringTok{"Latitude"}\NormalTok{,}
+       \DataTypeTok{color =} \StringTok{"Speed (mph)"}\NormalTok{)}
+
+\NormalTok{lat_v_long}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{lab1_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\hypertarget{adding-line-of-best-fit}{%
+\subsection{Adding Line of Best Fit}\label{adding-line-of-best-fit}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lat_v_long <-}\StringTok{ }\NormalTok{lat_v_long }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{)}
+
+\NormalTok{lat_v_long}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{lab1_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\hypertarget{simple-linear-regression-results}{%
+\subsection{Simple Linear Regression
+Results}\label{simple-linear-regression-results}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Calculating model}
+\NormalTok{model <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(latitude }\OperatorTok{~}\StringTok{ }\NormalTok{longitude, }\DataTypeTok{data =}\NormalTok{ walking)}
+
+\CommentTok{# Finding correlation coefficient}
+\KeywordTok{coef}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept)   longitude 
+##  651.652871    7.095362
+\end{verbatim}
+
+\emph{Formula for line of best fit:} \n
+\(latitude = 651.653 + 7.0954(longitude)\)
+
+\hypertarget{analysis-1}{%
+\subsubsection{Analysis}\label{analysis-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Is the line of best fit a good tool to estimate the path traveled? Why
+  or why not?
+\item
+  How does the correlation help you answer part b?
+\end{itemize}
+
+\hypertarget{mapping-the-route}{%
+\section{Mapping the route}\label{mapping-the-route}}
+
+I referenced exercises from \href{https://rpubs.com/ials2un/gpx1}{here}
+
+\hypertarget{getting-the-data}{%
+\subsection{Getting the data}\label{getting-the-data}}
+
+In order to ensure that all the values work when mapped, this equation
+places the vectors correctly.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Function to shift vectors}
+\NormalTok{shift_vec <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(vector, shift) \{}
+  \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{length}\NormalTok{(vec) }\OperatorTok{<=}\StringTok{ }\KeywordTok{abs}\NormalTok{(shift)) \{}
+    \KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\KeywordTok{length}\NormalTok{(vec))}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \ControlFlowTok{if}\NormalTok{ (shift }\OperatorTok{>=}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
+      \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{, shift), vec[}\DecValTok{1}\OperatorTok{:}\NormalTok{(}\KeywordTok{length}\NormalTok{(vec) }\OperatorTok{-}\StringTok{ }\NormalTok{shift)])}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+      \KeywordTok{c}\NormalTok{(vec[(}\KeywordTok{abs}\NormalTok{(shift) }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}\OperatorTok{:}\KeywordTok{length}\NormalTok{(vec)])}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{reading-in-gpx-file}{%
+\subsection{Reading in GPX file}\label{reading-in-gpx-file}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Limits to 10 digits}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{10}\NormalTok{)}
+
+\CommentTok{# Parsing the GPX file}
+\NormalTok{parsed_file <-}\StringTok{ }\KeywordTok{htmlTreeParse}\NormalTok{(}\DataTypeTok{file =} \StringTok{"lab-1-raw-data.gpx"}\NormalTok{,}
+                             \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(...) \{\},}
+                             \DataTypeTok{useInternalNodes =} \OtherTok{TRUE}\NormalTok{)}
+
+\CommentTok{# Get all times and coordinates via the respective xpath}
+\NormalTok{times <-}\StringTok{ }\KeywordTok{xpathSApply}\NormalTok{(parsed_file, }\DataTypeTok{path =} \StringTok{"//trkpt/time"}\NormalTok{, xmlValue)}
+\NormalTok{coords <-}\StringTok{ }\KeywordTok{xpathSApply}\NormalTok{(parsed_file, }\DataTypeTok{path =} \StringTok{"//trkpt"}\NormalTok{, xmlAttrs)}
+
+\CommentTok{# Extract latitude and longitude from the coordinates}
+\NormalTok{lats <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(coords[}\StringTok{"lat"}\NormalTok{,])}
+\NormalTok{lons <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(coords[}\StringTok{"lon"}\NormalTok{,])}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{putting-values-into-dataframe}{%
+\subsection{Putting values into
+dataframe}\label{putting-values-into-dataframe}}
+
+This allows us to have all of the GPX file in one place, ready to be
+placed onto a map.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{geodf <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{lat =}\NormalTok{ lats, }\DataTypeTok{lon =}\NormalTok{ lons, }\DataTypeTok{time =}\NormalTok{ times)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{querying-map-background}{%
+\subsection{Querying map background}\label{querying-map-background}}
+
+I used my Google API to access the static map used below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{street <-}\StringTok{ }\KeywordTok{get_map}\NormalTok{(}\DataTypeTok{location =} \StringTok{"409 N 15th St., Lockeland Springs, Nashville, Tennessee"}\NormalTok{,}
+                  \DataTypeTok{zoom =} \DecValTok{19}\NormalTok{,}
+                  \DataTypeTok{maptype =} \StringTok{"roadmap"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{finished-product}{%
+\subsection{Finished product}\label{finished-product}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Plotting points}
+\NormalTok{path <-}\StringTok{ }\KeywordTok{ggmap}\NormalTok{(street) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ geodf,}
+             \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ lon, }\DataTypeTok{y =}\NormalTok{ lat),}
+             \DataTypeTok{size =} \DecValTok{1}\NormalTok{,}
+             \DataTypeTok{alpha =} \FloatTok{0.7}\NormalTok{,}
+             \DataTypeTok{color =} \StringTok{"red"}\NormalTok{)}
+
+\CommentTok{# Adding details}
+\NormalTok{path <-}\StringTok{ }\NormalTok{path }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Longitude"}\NormalTok{,}
+       \DataTypeTok{y =} \StringTok{"Latitude"}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{"Walking Path Plotted using myTracks"}\NormalTok{,}
+       \DataTypeTok{subtitle =} \StringTok{"Carmen Canedo"}\NormalTok{,}
+       \DataTypeTok{caption =} \StringTok{"STAT 202, Summer 2020"}\NormalTok{)}
+
+\NormalTok{path}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{lab1_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+\begin{itemize}
+\tightlist
+\item
+  What was learned
+\item
+  Et ecetera
+\end{itemize}
+
+\end{document}
