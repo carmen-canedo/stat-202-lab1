@@ -1,7 +1,7 @@
 ---
 title: "Lab 1"
 author: "Carmen Canedo"
-date: "May 23, 2020"
+date: "May 24, 2020"
 output:
   pdf_document: default
   html_notebook: default
@@ -13,9 +13,9 @@ editor_options:
 # About
 For this lab, I used the GPS tracking app on my iPhone, myTracker, to trace myself walking a straight path outside of my house in Nashville, TN. I tried to maintain a steady pace as I walked up and down the street. The GPX and .csv file are included alongside the submission of my lab. 
 
-Below you will find an analysis of my path that was created using R statistical software. My code is available below, but my step by step process can be found on *[my GitHub page](https://github.com/carmen-canedo/stat-202-lab1)*.
+Below you will find an analysis of my path that was created using R statistical software. My code is available below, but my step-by-step process can be found on *[my GitHub page](https://github.com/carmen-canedo/stat-202-lab1)*.
 
-# Necessary Packages
+# Necessary packages
 In order to run the code below, the following packages must be installed and loaded on your computer.
 ```{r, message=FALSE}
 library(mdsr)
@@ -53,7 +53,7 @@ walking <- walking %>%
 ```
 
 # Summary stats calculations
-Summary statistics provide us with key information on the center and spread of our data; below, I calculate the minimum, first quartile, median, third quartile, max, mean, and standard deviation.
+Summary statistics provide us with key information on the center and spread of our data; below, I calculate the minimum, first quartile, median, third quartile, max, mean, and standard deviation of all the variables in the data set. 
 ```{r}
 sum_latitude <- favstats( ~ latitude, data = walking)
 
@@ -82,8 +82,8 @@ sum_dist_int_ft
   + The standard deviation is larger for latitude than it is for longitude.
   + This tells us that the latitude moves farther from the mean than the longitude does. Thus, we can expect the path to go north to south. 
 
-# Creating Latitude v. Longitude Scatter Plot
-Next, we are going to create a scatter plot of the longitude and latitude points that are colored based on my walking speed in MPH. The speed uses a blue to red scale where the slower I walk, the more blue the point appears, and as my speed increases, the point becomes more red. Because I aimed to maintain a steady pace during my walk, most of the points are purple.
+# Creating latitude v. longitude scatter plot
+Next, we are going to create a scatter plot of the longitude and latitude points that are colored based on my walking speed in miles per hour (mph). The speed uses a blue to red scale where the slower I walk, the more blue the point appears, and as my speed increases, the point becomes more red. Because I aimed to maintain a steady pace during my walk, most of the points are purple.
 ```{r}
 lat_v_long <- walking %>%
   ggplot(aes(x = longitude, y = latitude)) +
@@ -122,7 +122,7 @@ coef(model)
 cor(walking$longitude, walking$latitude)
 ```
 
-`coef()` returns the y-intercept and slope values that we can use to write out the formula for our linear regression.
+`coef()` returns the y-intercept and slope values that we can use to write out the formula for our linear regression below.
 
 **Formula for line of best fit:**
 $latitude = 651.653 + 7.0954(longitude)$
@@ -130,7 +130,7 @@ $latitude = 651.653 + 7.0954(longitude)$
 `cor()` returns the correlation coefficient that will help us gauge whether our model actually represents the sidewalk well.
 
 ### Analysis
-  + The regression line is a good tool to estimate the path I traveled because it is able to estimate the y-value given the change in the x-value.
+  + The regression line is a good tool to estimate the path I traveled because it is able to predict the y-value given the change in the x-value.
   + The correlation coefficient ranges from 0 to 1, and since our correlation value is 0.938, we can ascertain that our trend line accurately portrays the location of the sidewalk.
 
 # Mapping the route
@@ -154,7 +154,7 @@ shift_vec <- function(vector, shift) {
 ```
 
 ## Reading in GPX file
-Next we read in the .GPX file itself instead of using the .csv file from above.
+Next we read in the GPX file itself instead of using the .csv file from above.
 ```{r}
 # Limits to 10 digits
 options(digits = 10)
@@ -173,8 +173,8 @@ lats <- as.numeric(coords["lat",])
 lons <- as.numeric(coords["lon",])
 ```
 
-## Putting values into dataframe
-This allows us to have all of the GPX file in one place, ready to be placed onto a map.
+## Putting values into a dataframe
+This allows us to have all of individual data points from the GPX file in one place, ready to be placed onto a map.
 ```{r}
 geodf <- data.frame(lat = lats, lon = lons, time = times)
 ```
@@ -207,9 +207,9 @@ path <- path +
        subtitle = "Carmen Canedo",
        caption = "STAT 202, Summer 2020")
 
+# Printing map
 path
 ```
 
-# Conclusion
-This lab allowed me to apply statistical skills in a real life setting.
-  + Et ecetera
+# Summary
+This lab allowed me to apply statistical skills in a real life setting. I enjoy using R and Python, and though I have experience with them in other settings, it was really informative to use them to make statistical calculations. The biggest thing I learned was how to produce static maps using my very own Google API!
